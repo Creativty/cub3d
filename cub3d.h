@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/04 11:42:24 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/04 11:49:51 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ enum e_state_error
 	ERROR_TODO,
 };
 
+typedef struct s_vector
+{
+	int	x;
+	int	y;
+}	t_vector;
+
 typedef struct s_texture
 {
 	void	*handle;
@@ -55,12 +61,13 @@ typedef struct s_state
 		void	*handle;
 		void	*window;
 	}					mlx;
+	t_texture			textures[TEXTURE_COUNT];
 	struct {
 		char			*paths[TEXTURE_COUNT];
 	}					config;
-	t_texture			textures[TEXTURE_COUNT];
-	bool				is_running;
 	enum e_state_error	error;
+	bool				is_running;
+	t_vector			mouse;
 }	t_state;
 
 int		str_len(const char *str);
@@ -73,6 +80,7 @@ void	load_textures(t_state *state);
 
 int		loop_state(t_state *state);
 int		quit_state(t_state *state);
+int		mouse_state(int x, int y, t_state *state);
 int		keysym_state(int key, t_state *state);
 
 t_state	make_state_error(t_state *state, enum e_state_error error);

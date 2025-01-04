@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 11:38:51 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/04 11:40:33 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/04 11:56:05 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ int	keysym_state(int key, t_state *state)
 {
 	if (key == XK_Escape)
 		return (quit_state(state));
+	return (0);
+}
+
+int	mouse_state(int x, int y, t_state *state)
+{
+	state->mouse.x = x;
+	state->mouse.y = y;
+	// TODO(XENOBAS): add delta between last position and current position
 	return (0);
 }
 

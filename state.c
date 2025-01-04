@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 11:26:18 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/04 11:27:53 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/04 11:54:49 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_state	init_state(void)
 	t_state	state;
 
 	mem_zero(&state, sizeof(t_state));
+	mem_zero(&state.textures, sizeof(t_texture) * TEXTURE_COUNT); // NOTE(XENOBAS): Unclear why this solves a segfault during cleanup of textures.
 	state.error = OK;
 	state.is_running = true;
 	state.mlx.handle = mlx_init();
