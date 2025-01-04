@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:32 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/04 10:57:50 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/04 11:16:10 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,26 @@ int	clean_state(t_state state) {
 	int	retval;
 
 	retval = 0;
-	// asset management
-
 	if (state.error != OK) {
 		// Error printing.
 		printf("Error\n");
+		switch (state.error) {
+			case ERROR_MLX: {
+				printf("\tmlx initialization has failed.\n");
+			};
+			case ERROR_IMAGE_FORMAT: {
+				printf("\tan image has incorrect format.\n");
+			};
+			case ERROR_IMAGE_LOAD: {
+				printf("\tan image could not be loaded.\n");
+			};
+			case ERROR_LINUX: {
+				printf("\ta syscall has failed with: %s\n" , strerror(errno));
+			};
+			default: {
+			}
+		}
+		retval = 1;
 		// error_state -> prints an error depending on what kind of error we have.
 	}
 	clean_textures_state(&state);
@@ -67,7 +82,19 @@ int	clean_state(t_state state) {
 int	main(void)
 {
 	t_state	state;
+	char	*paths[TEXTURE_COUNT] =
+	{ 
+			"assets/NORTH.xpm",
+			NULL,
+			NULL,
+			NULL,
+	};
 
 	state = init_state();
+	state.config.paths[0] = paths[0];
+	state.config.paths[1] = paths[1];
+	state.config.paths[2] = paths[2];
+	state.config.paths[3] = paths[3];
+	load_textures(&state);
 	return (clean_state(state));
 }

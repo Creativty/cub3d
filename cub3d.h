@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/04 10:53:33 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/04 11:15:42 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,20 @@
 #define CUB3D_H
 #include <mlx.h>
 #include <math.h>
+#include <fcntl.h>
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
-#include <fcntl.h>
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define WINDOW_TITLE "is it cub3d ?"
+
+#define XPM_MAGIC "\x2f\x2a\x20\x58\x50\x4d\x20\x2a\x2f"
+#define BUFF_SIZE 32
 #define TEXTURE_COUNT 4
 
 enum e_state_error
@@ -32,6 +36,7 @@ enum e_state_error
 	ERROR_MLX,
 	ERROR_IMAGE_FORMAT,
 	ERROR_IMAGE_LOAD,
+	ERROR_LINUX,
 	ERROR_TODO,
 };
 
