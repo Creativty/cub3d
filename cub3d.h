@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/05 10:09:07 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/05 10:37:03 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@
 #define BUFF_SIZE 32
 #define TEXTURE_COUNT 4
 
-typedef struct s_vector
+typedef struct s_vec2
 {
-	int	x;
-	int	y;
-}	t_vector;
+	double	x;
+	double	y;
+}	t_vec2;
 
 typedef struct s_rgb
 {
@@ -58,8 +58,8 @@ typedef struct s_config
 	char		*paths[TEXTURE_COUNT];
 	t_rgb		color_ceil;
 	t_rgb		color_floor;
-	t_vector	size;
-	t_vector	player_start;
+	t_vec2		size;
+	t_vec2		player_start;
 	int			player_angle;
 }	t_config;
 
@@ -82,19 +82,20 @@ typedef struct s_texture
 	int		height;
 }	t_texture;
 
+typedef struct s_mlx
+{
+	void	*handle;
+	void	*window;
+}	t_mlx;
+
 typedef struct s_state
 {
-	struct {
-		void	*handle;
-		void	*window;
-	}					mlx;
+	t_mlx				mlx;
 	t_texture			textures[TEXTURE_COUNT];
-	struct {
-		char			*paths[TEXTURE_COUNT];
-	}					config;
-	enum e_state_error	error;
+	t_config			config;
+	t_vec2				mouse;
 	bool				is_running;
-	t_vector			mouse;
+	enum e_state_error	error;
 }	t_state;
 
 typedef struct s_list_str
@@ -108,6 +109,11 @@ char*		str_dup(const char *src);
 int			str_find(const char *haystack, const char *pattern);
 int			str_suffix(const char *haystack, const char *pattern);
 bool		str_prefix(const char *haystack, const char *pattern);
+
+t_vec2		vec2_add(t_vec2 lhs, t_vec2 rhs);
+t_vec2		vec2_sub(t_vec2 lhs, t_vec2 rhs);
+double		vec2_dot(t_vec2 lhs, t_vec2 rhs);
+double		vec2_len(t_vec2 v);
 
 t_list_str*	str_list_make(t_state* state, char *data);
 char*		str_list_join(t_state *state, t_list_str* list);
@@ -129,4 +135,6 @@ t_state		make_state_error(t_state *state, enum e_state_error error);
 t_state		init_state(void);
 int			clean_state(t_state state);
 void		clean_textures_state(t_state* state);
+
+void		main_usage(const char *name);
 #endif
