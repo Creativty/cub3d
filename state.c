@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 11:26:18 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/04 11:54:49 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:58:50 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	clean_state(t_state state)
 			printf("\ta syscall has failed with: %s\n" , strerror(errno));
 		} break;
 		default: {
+			printf("\tan uncaught error has occurred with code %d\n", state.error);
 		}
 		}
 		retval = 1;

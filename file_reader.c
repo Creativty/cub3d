@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 10:05:40 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/05 10:05:51 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:55:04 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_list_str*	read_file_buffer(t_state *state, int fd)
 	mem_zero(buff, sizeof(char) * 128);
 	length = read(fd, buff, 127);
 	if (length < 0)
-		return (make_state_error(state, ERROR_LINUX), NULL);
+		return (printf("read_file_buffer\n"), make_state_error(state, ERROR_LINUX), NULL);
 	else if (length == 0)
 		return (NULL);
 	return (str_list_make(state, buff));
@@ -39,7 +39,7 @@ char	*read_file(t_state *state, const char *path)
 		return (make_state_error(state, ERROR_MAP_EXTENSION), NULL);
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		return (make_state_error(state, ERROR_LINUX), NULL);
+		return (printf("read_file\n"), make_state_error(state, ERROR_LINUX), NULL);
 	parent = NULL;
 	while (state->error == OK)
 	{

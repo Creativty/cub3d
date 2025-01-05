@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/05 10:37:03 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:48:35 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_config
 	t_rgb		color_floor;
 	t_vec2		size;
 	t_vec2		player_start;
-	int			player_angle;
+	double		player_angle;
 }	t_config;
 
 enum e_state_error
