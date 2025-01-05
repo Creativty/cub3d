@@ -6,7 +6,7 @@
 #    By: aindjare <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/04 09:46:09 by aindjare          #+#    #+#              #
-#    Updated: 2025/01/04 10:57:03 by aindjare         ###   ########.fr        #
+#    Updated: 2025/01/04 15:38:28 by aindjare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,9 @@ fclean: clean
 	$(RM) $(DEPS) $(NAME)
 
 re: fclean all
+
+sanitize: LDFLAGS+=-fsanitize=address
+sanitize: re
 
 .PHONY: clean fclean re all
 	

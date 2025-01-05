@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/04 11:49:51 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:20:59 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ enum e_state_error
 {
 	OK = 0,
 	ERROR_MLX,
+	ERROR_LINUX,
+	ERROR_ALLOC,
 	ERROR_IMAGE_FORMAT,
 	ERROR_IMAGE_LOAD,
-	ERROR_LINUX,
+	ERROR_MAP_EXTENSION,
 	ERROR_TODO,
 };
 
@@ -71,6 +73,7 @@ typedef struct s_state
 }	t_state;
 
 int		str_len(const char *str);
+char*	str_dup(const char *src);
 int		str_find(const char *haystack, const char *pattern);
 int		str_suffix(const char *haystack, const char *pattern);
 bool	str_prefix(const char *haystack, const char *pattern);
