@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/05 14:48:35 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/05 15:11:53 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 #define XPM_MAGIC "\x2f\x2a\x20\x58\x50\x4d\x20\x2a\x2f"
 #define BUFF_SIZE 32
 #define TEXTURE_COUNT 4
+
+#define EPSILON ((double)1e-3)
 
 typedef struct s_vec2
 {
@@ -110,10 +112,13 @@ int			str_find(const char *haystack, const char *pattern);
 int			str_suffix(const char *haystack, const char *pattern);
 bool		str_prefix(const char *haystack, const char *pattern);
 
+t_vec2		vec2_make(double x, double y);
+t_vec2		vec2_identity(double v);
 t_vec2		vec2_add(t_vec2 lhs, t_vec2 rhs);
 t_vec2		vec2_sub(t_vec2 lhs, t_vec2 rhs);
 double		vec2_dot(t_vec2 lhs, t_vec2 rhs);
 double		vec2_len(t_vec2 v);
+double		vec2_dist(t_vec2 a, t_vec2 b);
 
 t_list_str*	str_list_make(t_state* state, char *data);
 char*		str_list_join(t_state *state, t_list_str* list);
@@ -122,6 +127,7 @@ void		str_list_free(t_list_str *list);
 
 void		mem_cpy(const char *src, int n, char *dst);
 void		mem_zero(void *memory, unsigned long size);
+void		*mem_alloc(unsigned long size);
 void		load_textures(t_state *state);
 
 char		*read_file(t_state *state, const char *path);
@@ -130,6 +136,9 @@ int			loop_state(t_state *state);
 int			quit_state(t_state *state);
 int			mouse_state(int x, int y, t_state *state);
 int			keysym_state(int key, t_state *state);
+
+t_config	make_config_default(void);
+void		clean_config(t_config* cfg);
 
 t_state		make_state_error(t_state *state, enum e_state_error error);
 t_state		init_state(void);
