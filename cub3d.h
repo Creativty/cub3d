@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/07 10:38:11 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:58:32 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <X11/X.h>
 #include <X11/keysym.h>
 
+#define CELL_SIZE 40
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define WINDOW_TITLE "is it cub3d?"
@@ -146,6 +147,8 @@ void		*mem_alloc(unsigned long size);
 t_texture	make_texture(t_state *state, int width, int height,
 						unsigned int color_fill);
 void		plot_texture(t_texture tex, int x, int y, unsigned int color);
+void		rect_texture(t_texture tex, t_vec2 pos, t_vec2 size,
+				unsigned int color);
 void		fill_texture(t_texture tex, unsigned int color);
 void		load_textures(t_state *state);
 

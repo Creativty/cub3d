@@ -6,16 +6,18 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:32 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/07 10:32:43 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:57:12 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <time.h>
 
 int	main(int argc, char **argv)
 {
 	t_state	state;
 
+	srand(time(NULL));
 	if (argc != 2)
 		return (main_usage(argv[0]), 1);
 	state = init_state();

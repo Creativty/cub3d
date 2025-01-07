@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:03:25 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/07 10:33:46 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:58:04 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,12 @@ void	fill_texture(t_texture tex, unsigned int color)
 			plot_texture(tex, x++, y, color);
 		y++;
 	}
+}
+
+void	rect_texture(t_texture tex, t_vec2 pos, t_vec2 size,
+					unsigned int color)
+{
+	for (int y = 0; y < (int)size.y; y++)
+		for (int x = 0; x < (int)size.x; x++)
+			plot_texture(tex, (int)pos.x + x, (int)pos.y + y, color);
 }
