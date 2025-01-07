@@ -6,14 +6,14 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 10:23:57 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/04 15:23:24 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:35:17 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdbool.h>
 
-int	str_len(const char *str) 
+int	str_len(const char *str)
 {
 	int	i;
 
@@ -56,14 +56,14 @@ bool	str_prefix(const char *haystack, const char *pattern)
 	return (str_find(haystack, pattern) == 0);
 }
 
-char*	str_dup(const char *src)
+char	*str_dup(const char *src)
 {
 	int		i;
 	int		len;
-	char*	dst;
+	char	*dst;
 
 	len = str_len(src);
-	dst = (char*)malloc(sizeof(char) * (len + 1));
+	dst = (char *)malloc(sizeof(char) * (len + 1));
 	if (dst)
 	{
 		i = 0;

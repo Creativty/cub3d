@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 11:26:18 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/05 14:58:50 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:38:49 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,60 +23,50 @@ t_state	init_state(void)
 	t_state	state;
 
 	mem_zero(&state, sizeof(t_state));
-	mem_zero(&state.textures, sizeof(t_texture) * TEXTURE_COUNT); // NOTE(XENOBAS): Unclear why this solves a segfault during cleanup of textures.
 	state.error = OK;
 	state.is_running = true;
 	state.mlx.handle = mlx_init();
 	if (state.mlx.handle == NULL)
 		return (make_state_error(&state, ERROR_MLX));
 	state.mlx.window = mlx_new_window(state.mlx.handle,
-									WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+			WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 	if (state.mlx.window == NULL)
 		return (make_state_error(&state, ERROR_MLX));
+	state.mlx.image = make_texture(&state, WINDOW_WIDTH, WINDOW_HEIGHT,
+			WINDOW_BACKGROUND);
+	if (state.error != OK)
+		return (state);
 	return (state);
 }
 
-void	clean_textures_state(t_state* state)
+void	clean_textures_state(t_state *state)
 {
 	int	i;
-	
+
 	i = 0;
-	while (i < TEXTURE_COUNT)
-	{
-		if (state->textures[i].handle)
-			mlx_destroy_image(state->mlx.handle, state->textures[i].handle);
-		mem_zero(&state->textures[i], sizeof(t_texture));
-		i++;
-	}
+	if (state->textures.EA.handle)
+		mlx_destroy_image(state->mlx.handle, state->textures.EA.handle);
+	if (state->textures.NO.handle)
+		mlx_destroy_image(state->mlx.handle, state->textures.NO.handle);
+	if (state->textures.WE.handle)
+		mlx_destroy_image(state->mlx.handle, state->textures.WE.handle);
+	if (state->textures.SO.handle)
+		mlx_destroy_image(state->mlx.handle, state->textures.SO.handle);
+	mem_zero(&state->textures, sizeof(t_textures));
 }
 
 int	clean_state(t_state state)
 {
 	int	retval;
 
-	retval = 0;
-	if (state.error != OK) {
+	retval = state.error != OK;
+	if (state.error != OK)
+	{
 		printf("Error\n");
-		switch (state.error) {
-		case ERROR_MLX: {
-			printf("\tmlx initialization has failed.\n");
-		} break;
-		case ERROR_IMAGE_FORMAT: {
-			printf("\tan image has incorrect format.\n");
-		} break;
-		case ERROR_IMAGE_LOAD: {
-			printf("\tan image could not be loaded.\n");
-		} break;
-		case ERROR_LINUX: {
-			printf("\ta syscall has failed with: %s\n" , strerror(errno));
-		} break;
-		default: {
-			printf("\tan uncaught error has occurred with code %d\n", state.error);
-		}
-		}
-		retval = 1;
+		explain_error(state.error);
 	}
 	clean_textures_state(&state);
+	mlx_destroy_image(state.mlx.handle, state.mlx.image.handle);
 	mlx_destroy_window(state.mlx.handle, state.mlx.window);
 	mlx_destroy_display(state.mlx.handle);
 	free(state.mlx.handle);

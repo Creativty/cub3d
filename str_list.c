@@ -6,15 +6,15 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 10:01:29 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/05 10:04:22 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:34:32 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	str_list_push(t_list_str** parent, t_list_str* child)
+void	str_list_push(t_list_str **parent, t_list_str *child)
 {
-	t_list_str*	iter;
+	t_list_str	*iter;
 
 	if (parent == NULL)
 		return ;
@@ -29,9 +29,9 @@ void	str_list_push(t_list_str** parent, t_list_str* child)
 	}
 }
 
-t_list_str*	str_list_make(t_state* state, char *data)
+t_list_str	*str_list_make(t_state *state, char *data)
 {
-	t_list_str*	node;
+	t_list_str	*node;
 
 	node = NULL;
 	if (state->error == OK)
@@ -48,13 +48,13 @@ t_list_str*	str_list_make(t_state* state, char *data)
 	return (node);
 }
 
-char	*str_list_join(t_state *state, t_list_str* list)
+char	*str_list_join(t_state *state, t_list_str *list)
 {
 	int			i;
 	int			len;
 	int			delta;
-	char*		data;
-	t_list_str*	iter;
+	char		*data;
+	t_list_str	*iter;
 
 	len = 0;
 	iter = list;
@@ -63,7 +63,7 @@ char	*str_list_join(t_state *state, t_list_str* list)
 		len += str_len(iter->data);
 		iter = iter->next;
 	}
-	data = (char*)malloc(sizeof(char) * (len + 1));
+	data = (char *)malloc(sizeof(char) * (len + 1));
 	if (data == NULL)
 		return (make_state_error(state, ERROR_ALLOC), NULL);
 	i = 0;

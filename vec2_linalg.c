@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec2.c                                             :+:      :+:    :+:   */
+/*   vec2_linalg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 10:22:57 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/07 10:33:29 by aindjare         ###   ########.fr       */
+/*   Created: 2025/01/07 10:33:13 by aindjare          #+#    #+#             */
+/*   Updated: 2025/01/07 10:33:28 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_vec2	vec2_make(double x, double y)
+double	vec2_dot(t_vec2 lhs, t_vec2 rhs)
 {
-	return ((t_vec2){x, y});
+	return ((lhs.x * rhs.x) + (lhs.y * rhs.y));
 }
 
-t_vec2	vec2_identity(double v)
+double	vec2_len(t_vec2 v)
 {
-	return ((t_vec2){v, v});
+	return (sqrt(vec2_dot(v, v)));
 }
 
-t_vec2	vec2_add(t_vec2 lhs, t_vec2 rhs)
+double	vec2_dist(t_vec2 a, t_vec2 b)
 {
-	return ((t_vec2){
-		.x = lhs.x + rhs.x,
-		.y = lhs.y + rhs.y,
-	});
-}
-
-t_vec2	vec2_sub(t_vec2 lhs, t_vec2 rhs)
-{
-	return ((t_vec2){
-		.x = lhs.x - rhs.x,
-		.y = lhs.y - rhs.y,
-	});
+	return (vec2_len(vec2_sub(b, a)));
 }

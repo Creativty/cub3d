@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 10:15:55 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/04 11:20:12 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:30:51 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,21 @@ t_texture	load_xpm(t_state *state, const char *path)
 			&tex.width, &tex.height);
 	if (tex.handle == NULL)
 		make_state_error(state, ERROR_IMAGE_LOAD);
+	else
+		tex.bytes = mlx_get_data_addr(tex.handle, &tex.bits_per_pixel,
+				&tex.line_length, &tex.endian);
 	return (tex);
 }
 
 void	load_textures(t_state *state)
 {
-	int	i;
-
-	i = 0;
-	while (i < TEXTURE_COUNT && state->error == OK)
-	{
-		if (state->config.paths[i])
-			state->textures[i] = load_xpm(state, state->config.paths[i]);
-		i++;
-	}
+	mem_zero(&state->textures, sizeof(t_textures));
+	if (state->error == OK && state->config.paths[0] != NULL)
+		state->textures.EA = load_xpm(state, state->config.paths[0]);
+	if (state->error == OK && state->config.paths[1] != NULL)
+		state->textures.NO = load_xpm(state, state->config.paths[1]);
+	if (state->error == OK && state->config.paths[2] != NULL)
+		state->textures.WE = load_xpm(state, state->config.paths[2]);
+	if (state->error == OK && state->config.paths[3] != NULL)
+		state->textures.SO = load_xpm(state, state->config.paths[3]);
 }

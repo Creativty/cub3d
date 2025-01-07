@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/05 15:11:53 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:38:11 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define WINDOW_TITLE "is it cub3d?"
+#define WINDOW_BACKGROUND 0xFF181818
 
 #define XPM_MAGIC "\x2f\x2a\x20\x58\x50\x4d\x20\x2a\x2f"
 #define BUFF_SIZE 32
@@ -80,20 +81,33 @@ enum e_state_error
 typedef struct s_texture
 {
 	void	*handle;
+	char	*bytes;
 	int		width;
 	int		height;
+	int		endian;
+	int		line_length;
+	int		bits_per_pixel;
 }	t_texture;
 
 typedef struct s_mlx
 {
-	void	*handle;
-	void	*window;
+	void		*handle;
+	void		*window;
+	t_texture	image;
 }	t_mlx;
+
+typedef struct s_textures
+{
+	t_texture	EA;
+	t_texture	NO;
+	t_texture	WE;
+	t_texture	SO;
+}	t_textures;
 
 typedef struct s_state
 {
 	t_mlx				mlx;
-	t_texture			textures[TEXTURE_COUNT];
+	t_textures			textures;
 	t_config			config;
 	t_vec2				mouse;
 	bool				is_running;
@@ -128,6 +142,11 @@ void		str_list_free(t_list_str *list);
 void		mem_cpy(const char *src, int n, char *dst);
 void		mem_zero(void *memory, unsigned long size);
 void		*mem_alloc(unsigned long size);
+
+t_texture	make_texture(t_state *state, int width, int height,
+						unsigned int color_fill);
+void		plot_texture(t_texture tex, int x, int y, unsigned int color);
+void		fill_texture(t_texture tex, unsigned int color);
 void		load_textures(t_state *state);
 
 char		*read_file(t_state *state, const char *path);
@@ -146,4 +165,5 @@ int			clean_state(t_state state);
 void		clean_textures_state(t_state* state);
 
 void		main_usage(const char *name);
+void		explain_error(enum e_state_error code);
 #endif
