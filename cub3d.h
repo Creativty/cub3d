@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/07 10:58:32 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:38:04 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 #include <X11/X.h>
 #include <X11/keysym.h>
 
+#define MAX_ITERS 64
 #define CELL_SIZE 40
 #define WINDOW_WIDTH 800
+#define SCREEN_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define WINDOW_TITLE "is it cub3d?"
 #define WINDOW_BACKGROUND 0xFF181818
@@ -34,13 +36,21 @@
 #define BUFF_SIZE 32
 #define TEXTURE_COUNT 4
 
-#define EPSILON ((double)1e-3)
+#define EPSILON ((double)1e-6)
+#define FOV ((double)(M_PI * 0.5))
+#define NEAR_PLANE 1.0
 
 typedef struct s_vec2
 {
 	double	x;
 	double	y;
 }	t_vec2;
+
+typedef struct s_fov
+{
+	t_vec2	p1;
+	t_vec2	p2;
+}	t_fov;
 
 typedef struct s_rgb
 {
@@ -56,6 +66,12 @@ enum e_cell
 	CELL_PLAYER,
 };
 
+typedef struct s_view
+{
+	t_vec2		pos;
+	t_vec2		dir;
+}	t_view;
+
 typedef struct s_config
 {
 	enum e_cell *cells;
@@ -63,8 +79,7 @@ typedef struct s_config
 	t_rgb		color_ceil;
 	t_rgb		color_floor;
 	t_vec2		size;
-	t_vec2		player_start;
-	double		player_angle;
+	t_view		view;
 }	t_config;
 
 enum e_state_error
@@ -128,12 +143,25 @@ int			str_suffix(const char *haystack, const char *pattern);
 bool		str_prefix(const char *haystack, const char *pattern);
 
 t_vec2		vec2_make(double x, double y);
+t_vec2		vec2_clone(t_vec2 v);
 t_vec2		vec2_identity(double v);
 t_vec2		vec2_add(t_vec2 lhs, t_vec2 rhs);
 t_vec2		vec2_sub(t_vec2 lhs, t_vec2 rhs);
+t_vec2		vec2_mul_scalar(t_vec2 lhs, double rhs);
 double		vec2_dot(t_vec2 lhs, t_vec2 rhs);
 double		vec2_len(t_vec2 v);
 double		vec2_dist(t_vec2 a, t_vec2 b);
+t_vec2		vec2_norm(t_vec2 v);
+t_vec2		vec2_rot90(t_vec2 v);
+t_vec2		vec2_lerp(t_vec2 a, t_vec2 b, double t);
+t_vec2		vec2_rot(t_vec2 v, double angle);
+
+t_fov		range_fov(t_view view);
+t_vec2		ray_cell_hit(t_vec2 p1, t_vec2 p2);
+t_vec2		ray_cast(t_config cfg, t_vec2 p1, t_vec2 p2);
+
+bool		is_bounded(t_config cfg, t_vec2 v);
+enum e_cell	cell_at(t_config cfg, t_vec2 cell);
 
 t_list_str*	str_list_make(t_state* state, char *data);
 char*		str_list_join(t_state *state, t_list_str* list);
