@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:49 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/13 16:38:04 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:46:59 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 
 #define MAX_ITERS 64
 #define CELL_SIZE 40
-#define WINDOW_WIDTH 800
-#define SCREEN_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1600
+#define SCREEN_WIDTH 1600
+#define WINDOW_HEIGHT 1600
 #define WINDOW_TITLE "is it cub3d?"
 #define WINDOW_BACKGROUND 0xFF181818
 

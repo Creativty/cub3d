@@ -6,7 +6,7 @@
 /*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 11:38:51 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/13 16:44:18 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:47:17 by aindjare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,15 @@ int	quit_state(t_state *state)
 int	keysym_state(int key, t_state *state)
 {
 	t_view			*view;
-	const double	delta = 2.0 * M_PI / 16.0;
+	const double	delta = 2.0 * M_PI / 100.0;
 
 	if (key == XK_Escape)
 		return (quit_state(state));
 	view = &state->config.view;
 	if (key == XK_Right)
 		view->dir = vec2_rot(view->dir, +delta);
-	if (key == XK_Left)
+	else if (key == XK_Left)
 		view->dir = vec2_rot(view->dir, -delta);
-	if (key == XK_Left || key == XK_Right)
-		printf("rotate to vec2 { %.2f, %.2f }\n", view->dir.x, view->dir.y);
 	else
 		printf("Key strike %d\n", key);
 	return (0);
