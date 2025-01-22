@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: zadriouc@student.1337.ma <zadriouc>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 09:42:32 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/07 10:57:12 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:03:39 by zadriouc@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	load_textures(&state);
 
 	char*	config_text = read_file(&state, argv[1]);
+	parse_scene(&state, config_text);
 	free(config_text);
 
 	mlx_hook(state.mlx.window, DestroyNotify, 0, (void *)quit_state, &state);

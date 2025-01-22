@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aindjare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: zadriouc@student.1337.ma <zadriouc>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 10:23:57 by aindjare          #+#    #+#             */
-/*   Updated: 2025/01/07 10:35:17 by aindjare         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:14:05 by zadriouc@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,29 @@ char	*str_dup(const char *src)
 	{
 		i = 0;
 		while (dst && i < len)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (dst);
+}
+
+char	*str_copy(const char *src, int start, int end)
+{
+	int		i;
+	int		len;
+	char	*dst;
+
+	if (start > end)
+		return (NULL);
+	len = end - start + 1;
+	dst = (char *)malloc(sizeof(char) * (len + 1));
+	if (dst)
+	{
+		i = start;
+		while (dst && i < end)
 		{
 			dst[i] = src[i];
 			i++;
